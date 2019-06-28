@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Account</title>
+    <!-- Link to Reset CSS -->
+    <!-- Link to Vue CSS -->
+    <!-- Link to Style CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./../public/styles/styles.css" media="screen" title="no title" charset="utf-8">
+</head>
+
+<body>
+    <!-- Main Container -->
+    <div class='body'>
+        <!-- Header -->
+        <div class='header'></div>
+
+        <!-- Create Account Form -->
+        <form action='POST'>
+            <div class='container'>
+                <h1>Create an Account</h1>
+                <hr>
+
+                <label for='firstName'>First Name</label>
+                <input type='text' placeholder='First Name' name='firstName' required><br>
+
+                <label for='lastName'>Last Name</label>
+                <input type='text' placeholder='Last Name' name='lastName' required><br>
+
+                <label for='userName'>Username</label>
+                <input type='text' placeholder='Username' name='userName' required><br>
+
+                <label for='email'>Email</label>
+                <input type='text' placeholder='email@example.com' name='email' required><br>
+
+                <label for='psw'>Password</label>
+                <input type='password' placeholder='Password' name='psw' required><br>
+
+                <label for='psw-repeat'>Password</label>
+                <input type='password' placeholder='Repeat Password' name='psw-repeat' required><br>
+                <hr>
+
+                <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+                <button type="submit" class="registerbtn">Register</button>
+            </div>
+
+            <div class="container signin">
+                <p>Already have an account? <a href="./sign-in.html">Sign in</a>.</p>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>
