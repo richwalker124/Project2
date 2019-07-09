@@ -13,13 +13,12 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     image: {
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
       allowNull: true
     },
     hashtags: {
       type: DataTypes.STRING,
       allowNull: true
-
     }
     // likes: {
     //   type: DataTypes.INTEGER,

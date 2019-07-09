@@ -73,7 +73,9 @@ var API = {
   // ~~~~~~~ Submits post and reloads page ~~~~~~~~
   createPost: function(postBody) {
     $.post("/api/post/add", {
-      text: postBody.text
+      text: postBody.text,
+      image: postBody.image,
+      hashtags: postBody.hashtags
     }).then(function() {
       location.reload();
     });
@@ -111,7 +113,6 @@ $("#imgBtnSix").on("click", function() {
   event.preventDefault();
   userImg = "/images/userImgSix.jpg";
 });
-
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Register Account Button Process~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var registerFormSubmit = function(event) {
@@ -177,17 +178,18 @@ var loginAccount = function(event) {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ New Post Submit ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var postSubmit = function(event) {
   event.preventDefault();
-  
+
   //Grab hashtags from post, sets them as a string to upload to databas
-var hashTags = JSON.stringify({ hashtags: getHashTags($postText.val().trim())});
+  var hashTags = JSON.stringify({
+    hashtags: getHashTags($postText.val().trim())
+  });
 
   var newPost = {
     text: $postText.val().trim(),
     hashtags: hashTags,
-    image: localStorage.getItem("userImg"), // This still needs to be linked from login
-    likes: 0,
-    dislikes: 0
+    image: localStorage.getItem("userImg") // This still needs to be linked from login
   };
+  console.log(newPost);
 
   API.createPost(newPost);
 };

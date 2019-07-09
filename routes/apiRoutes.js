@@ -81,14 +81,13 @@ module.exports = function(app) {
 
   app.post("/api/post/add", isAuthenticated, function(req, res) {
     console.log("new post req", req.body);
+    console.log(req.user.userID);
     db.postTable
       .create({
         userLoginUserId: req.user.userID,
         text: req.body.text,
-        image: req.body.userImg,
-        likes: 0,
+        image: req.body.image,
         hashtags: req.body.hashtags,
-        dislikes: 0,
         userLoginUserId: parseInt(req.body.userLoginUserId)
       })
       .then(function(data) {
