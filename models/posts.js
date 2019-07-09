@@ -15,6 +15,11 @@ module.exports = function(sequelize, DataTypes) {
     image: {
       type: DataTypes.BLOB,
       allowNull: true
+    },
+    hashtags: {
+      type: DataTypes.STRING,
+      allowNull: true
+
     }
     // likes: {
     //   type: DataTypes.INTEGER,

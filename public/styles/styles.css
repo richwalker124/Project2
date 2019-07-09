@@ -34,8 +34,10 @@
 #textarea1 {
   background-color: white;
 }
+
 .commentText {
   display: inline-block;
+
   background-color: rgba(105, 27, 154, 0.699);
   color: white;
   border-radius: 20px;

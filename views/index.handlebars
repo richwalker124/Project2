@@ -1,7 +1,7 @@
 {{> header home=true}}
 
 <div id="home">
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <div class="col-2 hide-on-med-and-down">
                 <div class="row">
@@ -11,7 +11,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-7">
+
+            <div class="col s12 m6">
                 <div class="row">
                     <div class="col s12 m6">
                         <div class="card white">
@@ -21,18 +22,18 @@
                                         <div class="row">
                                             <div class="col-2">
                                                 <img style="height:50px; width:50px;display:inline-block"
-                                                    src="https://miro.medium.com/max/560/1*MccriYX-ciBniUzRKAUsAw.png">
+                                                    src="{{account.userImg}}">
                                             </div>
                                             <div class="col-10">
-                                                <textarea style="display:inline-block;color:gainsboro" id="postTextBox"
+
+                                                <textarea style="display:inline-block; padding:5px;color:gainsboro" id="postTextBox"
+
                                                     class="materialize-textarea" data-length="140"
                                                     placeholder="Start an argument here!"></textarea>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
-                                                <a class="waves-effect waves-light btn-small orange lighten-2 left"><i
-                                                        class="material-icons">photo</i></a>
                                             </div>
                                             <div class="col-6">
 
@@ -90,7 +91,8 @@
         // and updates the HTML on the page
         $.get("/api/user_data").then(function (data) {
             $("#userBoxName").text(data.userName);
-            localStorage.setItem("userId", data.id)
+            localStorage.setItem("userId", data.id);
+            localStorage.setItem("userImg", data.userImg);
             console.log("data from backend ", data);
         });
     });

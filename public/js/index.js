@@ -5,7 +5,7 @@ var $regUserName = $("#regUserName");
 var $regEmail = $("#regEmail");
 var $regPassword = $("#regPassword");
 var $passwordRepeat = $("#regPassword-repeat");
-var $userImg = $("#userImg");
+// var $userImg = $("#userImg");
 
 // User Login fields
 var $email = $("#email");
@@ -19,6 +19,20 @@ var $postText = $("#postTextBox");
 var $regSubmitBtn = $("#registerAccountSubmit");
 var $loginSubmitBtn = $("#loginButton");
 var $newPostSubmit = $("#newPostSubmit");
+
+//Hashtag grabber
+function getHashTags(inputText) {
+  inputText = inputText.toLowerCase();
+  var regex = /(?:^|\s)(?:#)([a-zA-Z\d]+)/gm;
+  var matches = [];
+  var match;
+
+  while ((match = regex.exec(inputText))) {
+    matches.push(match[1]);
+  }
+
+  return matches;
+}
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -65,6 +79,39 @@ var API = {
     });
   }
 };
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~userImg Selection~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var userImg;
+// Button Options
+$("#imgBtnOne").on("click", function() {
+  event.preventDefault();
+  userImg = "/images/userImgOne.jpg";
+});
+
+$("#imgBtnTwo").on("click", function() {
+  event.preventDefault();
+  userImg = "/images/userImgTwo.jpg";
+});
+
+$("#imgBtnThree").on("click", function() {
+  event.preventDefault();
+  userImg = "/images/userImgThree.jpg";
+});
+
+$("#imgBtnFour").on("click", function() {
+  event.preventDefault();
+  userImg = "/images/userImgFour.jpg";
+});
+
+$("#imgBtnFive").on("click", function() {
+  event.preventDefault();
+  userImg = "/images/userImgFive.jpg";
+});
+
+$("#imgBtnSix").on("click", function() {
+  event.preventDefault();
+  userImg = "/images/userImgSix.jpg";
+});
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Register Account Button Process~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var registerFormSubmit = function(event) {
@@ -74,7 +121,7 @@ var registerFormSubmit = function(event) {
     firstName: $firstName.val().trim(),
     lastName: $lastName.val().trim(),
     userName: $regUserName.val().trim(),
-    userImg: $userImg.val().trim(),
+    userImg: userImg,
     email: $regEmail.val().trim(),
     password: $regPassword.val().trim()
   };
@@ -130,9 +177,14 @@ var loginAccount = function(event) {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ New Post Submit ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var postSubmit = function(event) {
   event.preventDefault();
+  
+  //Grab hashtags from post, sets them as a string to upload to databas
+var hashTags = JSON.stringify({ hashtags: getHashTags($postText.val().trim())});
 
   var newPost = {
     text: $postText.val().trim(),
+    hashtags: hashTags,
+    image: localStorage.getItem("userImg"), // This still needs to be linked from login
     likes: 0,
     dislikes: 0
   };

@@ -1,0 +1,82 @@
+<div id="account">
+    <div class="container">
+        <div class="row">
+            <div class="col-10 offset-1">
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div id="accountCard" class="card">
+                            <div class="card-content white-text purple darken-3">
+                                <span class="card-title">Account Details</span>
+                            </div>
+                            <div class="card-action white">
+                                <div class="row">
+                                    <div class="col-6 s12">
+                                        {{!-- First Name --}}
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <p><strong>First Name</strong>: {{account.firstName}}</p>
+                                            </div>
+                                        </div>
+                                        {{!-- Last Name --}}
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <p><strong>Last Name</strong>: {{account.lastName}}</p>
+                                            </div>
+                                        </div>
+                                        {{!-- Username --}}
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <p><strong>Username</strong>: {{account.userName}}</p>
+                                            </div>
+                                        </div>
+                                        {{!-- Email --}}
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <p><strong>Email</strong>: {{account.email}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 s12" style="border-left:1px solid grey;">
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <img src="{{account.userImg}}" alt="Profile Picture"
+                                                    style="width:100px; height:100px; margin:0px auto;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{{!-- <div class="col-6 s12" style="border-left:1px solid grey;">
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <p><strong>Posts</strong>: {{account.postCount}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <p><strong>Comments</strong>: {{account.commentCount}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <button class="btn waves-effect waves-light purple lighten-3 right" id="changeImg" style="width:100%;">Change Image</button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <button class="btn waves-effect waves-light purple lighten-3 right" id="delAccount" style="width:100%;">Delete Account</button>
+                                            </div>
+                                        </div>
+                                    </div> --}}
