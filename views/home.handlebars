@@ -1,3 +1,6 @@
+{{> header home=false}}
+
+
 <div id="home">
   <div class="container">
     <div class="row">
@@ -88,7 +91,7 @@
                     </form>
                   </div>
                   <div class="modal-footer">
-                    <a href="#!" id="registerAccountSubmit"
+                    <a href="/" id="registerAccountSubmit"
                       class="modal-close waves-effect waves-green btn purple darken-3">Create New
                       Account!</a>
                   </div>
@@ -101,13 +104,22 @@
       </div>
     </div>
 
-    <script src="/js/index.js"></script>
-    <script>
-      var titanic = new Titanic({
-        hover: true, // auto animated on hover (default true)
-        click: true  // auto animated on click/tap (default false)
-      });
-      $(document).ready(function () {
-        $('.modal').modal();
-      });
-    </script>
+    <div class="row">
+      {{> auth}}
+    </div>
+
+  </div>
+</div>
+
+
+
+<script src="/js/index.js"></script>
+<script>
+  var titanic = new Titanic({
+    hover: true, // auto animated on hover (default true)
+    click: true  // auto animated on click/tap (default false)
+  });
+  $(document).ready(function () {
+    $('.modal').modal();
+  });
+</script>

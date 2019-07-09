@@ -7,15 +7,15 @@ module.exports = function(sequelize, DataTypes) {
     },
     text: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
-        len: [0, 255]
+        len: [0, 1000]
       }
     },
     image: {
       type: DataTypes.BLOB,
       allowNull: true
-    },
+    }
     // likes: {
     //   type: DataTypes.INTEGER,
     //   defaultValue: "0"
@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
     // }
   });
 
-  postTable.asociate = function(models){
+  postTable.asociate = function(models) {
     postTable.belongsTo(models.userLogin, {
       foreignKey: {
         allowNull: false

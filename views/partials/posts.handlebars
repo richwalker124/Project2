@@ -1,0 +1,54 @@
+<div id="postContainer">
+
+    {{#each post}}
+    <div class="card" style="margin-top: 1vh;">
+        <div id="testPost" class="post">
+            <div class="postBox card-content">
+                <div class="row">
+                    <div class="col-2">
+                        <i class="material-icons prefix" style="top:0px!important;">
+                            <img style="height:45px; width:45px;"
+                                src="https://miro.medium.com/max/560/1*MccriYX-ciBniUzRKAUsAw.png">
+                        </i>
+                    </div>
+                    <div class="col-10">
+                        {{!-- <p id="postText"></p> --}}
+                        <p>{{this.text}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card-action commentBar">
+                    <div class="col-4 left">
+                        <i class="flaticon-fire tooltipped" data-position="bottom" data-tooltip="Fire"></i>
+                    </div>
+                    <div class="col-4 left">
+                        <i class="material-icons prefix">
+                            <div style="height:20px; width: 20px;" class="titanic titanic-trash tooltipped"
+                                data-position="bottom" data-tooltip="Trash">
+                            </div>
+                        </i>
+                    </div>
+
+                </div>
+            </div>
+            <div id="commentRow" style="display: none" class="row">
+                <div style="padding:10px; margin-top:-25px;" class="card-content">
+                    <div class="col l12 m6 s3 enterComment">
+                        <form>
+                            <textarea class="commentTextBox" style="margin-top:6px;" id="textarea2"
+                                class="materialize-textarea" data-length="140" placeholder="  Argue with this person!"
+                                commentFieldId="1-1"></textarea>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="commentSection" postId="1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{/each}}
+</div>

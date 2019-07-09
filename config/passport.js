@@ -19,21 +19,22 @@ passport.use(
           }
         })
         .then(function(dbUser) {
-
-          // If there's no user with the given email
+          // If: checks given email address against database
           if (!dbUser) {
             console.log(`An incorrect email address was attempted: ${email}`);
             return done(null, false, {
               message: "Invalid login, please try again!"
             });
+            // Else if: checks password to see if it is correct
           } else if (!dbUser.validPassword(password)) {
             console.log("An incorrect password was attempted");
             return done(null, false, {
               message: "Invalid login, please try again!"
             });
+            // Else: none of the above, return the user
+          } else {
+            return done(null, dbUser);
           }
-          // If none of the above, return the user
-          return done(null, dbUser);
         });
     }
   )

@@ -1,59 +1,9 @@
 var db = require("../models");
 var passport = require("../config/passport");
 const isAuthenticated = require("../config/middleware/isAuthenticated");
-const isNotAuthenticated = require("../config/middleware/isNotAuthenticated");
+// const isNotAuthenticated = require("../config/middleware/isNotAuthenticated");
 
 module.exports = function(app) {
-  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~GETS RECENT POSTS / COMMENTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  // Get most recent posts (based on limit)
-  app.get("/api/post/", function(req, res) {
-    // console.log("post request ",req);
-    db.postTable
-      .findAll({
-        limit: 10,
-        where: {
-          //We need to find user id for this part.
-          //This is where we would exlude posts made by the user
-        },
-        order: [["createdAt", "DESC"]]
-      })
-      .then(function(data) {
-        res.json(data);
-      });
-  });
-
-  // Get most recent posts (based on request (as either popularity all time or past days))
-  app.get("/api/post/:pop/:time", function(req, res) {
-    postTable
-      .findAll({
-        limit: 10,
-        where: {
-          //
-          //This is where we would exlude posts made by the user, find out where we will post the user id.
-        },
-        //may need to put the req into quotes
-        order: [[req.body.pop, "DESC"]]
-      })
-      .then(function(data) {
-        res.json(data);
-      });
-  });
-
-  //Gets comments on related posts
-  app.get("/api/comments/:postId", function(req, res) {
-    comments
-      .findAll({
-        where: {
-          postTablepostId: req.params.postId //Needs to be the actual post id.,
-        },
-        order: [["createdAt", "DESC"]]
-      })
-      .then(function(data) {
-        res.json(data);
-      });
-  });
-
-  //THESE BELOW NEED TO BE UPDATED
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CREATE NEW ACCOUNT/POST/COMMENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // Create a new account/Post/Comment
   app.post("/api/account/add", function(req, res) {
@@ -64,12 +14,14 @@ module.exports = function(app) {
         }
       })
       .then(function(dbData) {
-        // If there's no user with the given email
+        console.log(dbData);
+        // If there's a user with the given email
         if (dbData) {
           console.log(`E-Mail Address already in use: ${req.body.email}`);
-          res.status(409).json({
-            message: "Email Address is already in use! Please try to login."
+          res.render("home", {
+            message: "Email address is already in use!"
           });
+          return;
         } else {
           db.userLogin
             .findOne({
@@ -78,14 +30,15 @@ module.exports = function(app) {
               }
             })
             .then(function(dbData) {
-              // If there's no user with the given email
+              console.log(dbData);
+
+              // If there's a user with the given username
               if (dbData) {
                 console.log(`Username already in use: ${req.body.userName}`);
-                res.status(409).json({
-                  message:
-                    "Username is already taken! Please select a new username."
-                });
+                res.render("home", { message: "Username is taken!" });
+                return;
               } else {
+                console.log("created account");
                 db.userLogin
                   .create({
                     firstName: req.body.firstName,
@@ -95,7 +48,7 @@ module.exports = function(app) {
                     password: req.body.password
                   })
                   .then(function() {
-                    console.log("redircting now!");
+                    console.log("Attempting login now!");
                     res.redirect(307, "/api/login");
                   })
                   .catch(function(err) {
@@ -109,7 +62,6 @@ module.exports = function(app) {
   });
 
   app.post("/api/login", passport.authenticate("local"), function(req, res) {
-    console.log("A sucessful login has been made!");
     res.json(req.user);
   });
 
@@ -138,9 +90,7 @@ module.exports = function(app) {
         text: req.body.text,
         image: "",
         likes: 0,
-
-        dislikes: 0,
-        userLoginUserId: parseInt(req.body.userLoginUserId)
+        dislikes: 0
       })
       .then(function(data) {
         // res.status(status);
@@ -161,6 +111,54 @@ module.exports = function(app) {
       })
       .then(function(dbComment) {
         res.json(dbComment);
+      });
+  });
+
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~GETS RECENT POSTS / COMMENTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // Get most recent posts (based on limit)
+  app.get("/api/post", function(req, res) {
+    // console.log("post request ",req);
+    db.postTable
+      .findAll({
+        limit: 10,
+        where: {
+          //We need to find user id for this part.
+          //This is where we would exlude posts made by the user
+        },
+        order: [["createdAt", "DESC"]]
+      })
+      .then(function(dbData) {
+        res.json(dbData);
+      });
+  });
+  // Get most recent posts (based on request (as either popularity all time or past days))
+  app.get("/api/post/:pop/:time", function(req, res) {
+    db.postTable
+      .findAll({
+        limit: 10,
+        where: {
+          //
+          //This is where we would exlude posts made by the user, find out where we will post the user id.
+        },
+        //may need to put the req into quotes
+        order: [[req.body.pop, "DESC"]]
+      })
+      .then(function(data) {
+        res.json(data);
+      });
+  });
+
+  //Gets comments on related posts
+  app.get("/api/comments/:postId", function(req, res) {
+    db.comments
+      .findAll({
+        where: {
+          postTablepostId: req.params.postId //Needs to be the actual post id.,
+        },
+        order: [["createdAt", "DESC"]]
+      })
+      .then(function(data) {
+        res.json(data);
       });
   });
 

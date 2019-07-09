@@ -11,9 +11,14 @@ var $userImg = $("#userImg");
 var $email = $("#email");
 var $password = $("#password");
 
+// Post textbox
+var $postText = $("#postTextBox");
+// var $postContainer = $("#postContainer");
+
 // eslint-disable-next-line no-unused-vars
 var $regSubmitBtn = $("#registerAccountSubmit");
 var $loginSubmitBtn = $("#loginButton");
+var $newPostSubmit = $("#newPostSubmit");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -33,7 +38,6 @@ var API = {
       email: account.email,
       password: account.password
     })
-
       .then(function() {
         window.location.replace("/");
 
@@ -51,13 +55,18 @@ var API = {
     });
   },
   createPost: function(postBody) {
-    return $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
-      url: "api/post/add",
-      type: "POST",
-      data: JSON.stringify(postBody)
+    console.log(postBody.text);
+    $.post("/api/post/add", {
+      text: postBody.text
+    }).then(function(data) {
+      console.log("submitted data:", data);
+      var postId = data.postId;
+      console.log(postId);
+      // $postContainer.empty();
+      // $.get("/api/post").then(function(dbData) {
+      //   Handlebars.registerPartial("fullName", "{{firstName}} {{lastName}}");
+      // });
+      location.reload();
     });
   }
 };
@@ -98,6 +107,7 @@ var registerFormSubmit = function(event) {
     $regPassword.val("");
     $passwordRepeat.val("");
     console.table(account);
+    window.location.replace("/");
   });
 };
 
@@ -123,47 +133,22 @@ var loginAccount = function(event) {
 };
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ New Post Submit ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-$(document).on("click", "#newPostSubmit", function() {
+var postSubmit = function(event) {
   event.preventDefault();
 
-  var postText = $("#postTextBox")
-    .val()
-    .trim();
-
   var newPost = {
-    text: postText,
-
-    image: "userImg", // This still needs to be linked from login
+    text: $postText.val().trim(),
     likes: 0,
-    dislikes: 0,
-    userLoginUserId: parseInt(localStorage.getItem("userId")) // This also needs to be linked from login
+    dislikes: 0
   };
-  console.log("NEW post:", newPost);
-  // $.post("/api/post/add", newPost).then(function (data) {
-  //   console.log("submitted data:", data);
-  //   var postId = data.postId;
-  //   console.log(postId);
-  //   location.reload();
-  // });
 
-  $.ajax({
-    type: "POST",
-    url: "/api/post/add",
-    data: newPost
-  }).then(function(data) {
-    console.log("submitted data:", data);
-    var postId = data.postId;
-    console.log(postId);
-    location.reload();
-  });
-
-  // newPostDOM(postText);
-  // Clear form data
-  $("#postTextBox").val("");
-});
+  API.createPost(newPost);
+};
 
 // Add Event Listener to Create an Account
 $regSubmitBtn.on("click", registerFormSubmit);
 
 // Add Event Listener to Login
 $loginSubmitBtn.on("click", loginAccount);
+
+$newPostSubmit.on("click", postSubmit);
