@@ -22,6 +22,7 @@ var $newPostSubmit = $("#newPostSubmit");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
+  // ~~~~~~ Creates an account with AJAX ~~~~~
   createAccount: function(account) {
     return $.ajax({
       headers: {
@@ -32,7 +33,7 @@ var API = {
       data: JSON.stringify(account)
     });
   },
-
+  // ~~~~~~~ Attempts a login with email and password ~~~~~~~~
   getAccount: function(account) {
     $.post("/api/login", {
       email: account.email,
@@ -40,32 +41,26 @@ var API = {
     })
       .then(function() {
         window.location.replace("/");
-
-        // If there's an error, log the error
       })
       .catch(function(err) {
         console.alert("Invalid Email/Password Combination!");
         console.log(err);
       });
   },
+
+  // ~~~~~~~~ Deletes account by ID ~~~~~~~~~~~~
   deleteAccount: function(id) {
     return $.ajax({
       url: "api/account/" + id,
       type: "DELETE"
     });
   },
+
+  // ~~~~~~~ Submits post and reloads page ~~~~~~~~
   createPost: function(postBody) {
-    console.log(postBody.text);
     $.post("/api/post/add", {
       text: postBody.text
-    }).then(function(data) {
-      console.log("submitted data:", data);
-      var postId = data.postId;
-      console.log(postId);
-      // $postContainer.empty();
-      // $.get("/api/post").then(function(dbData) {
-      //   Handlebars.registerPartial("fullName", "{{firstName}} {{lastName}}");
-      // });
+    }).then(function() {
       location.reload();
     });
   }
@@ -151,4 +146,5 @@ $regSubmitBtn.on("click", registerFormSubmit);
 // Add Event Listener to Login
 $loginSubmitBtn.on("click", loginAccount);
 
+// Add Event Listener to submit Post
 $newPostSubmit.on("click", postSubmit);

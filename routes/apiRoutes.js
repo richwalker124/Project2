@@ -21,7 +21,6 @@ module.exports = function(app) {
           res.render("home", {
             message: "Email address is already in use!"
           });
-          return;
         } else {
           db.userLogin
             .findOne({
@@ -30,13 +29,10 @@ module.exports = function(app) {
               }
             })
             .then(function(dbData) {
-              console.log(dbData);
-
               // If there's a user with the given username
               if (dbData) {
                 console.log(`Username already in use: ${req.body.userName}`);
                 res.render("home", { message: "Username is taken!" });
-                return;
               } else {
                 console.log("created account");
                 db.userLogin

@@ -1,3 +1,9 @@
+.container-fluid {
+  margin-left: 5vw;
+  margin-right: 5vw;
+  width: 88vw;
+}
+
 .card {
   margin-top: 5vh !important;
   border: white solid 0px;
