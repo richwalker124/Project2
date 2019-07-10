@@ -214,12 +214,15 @@ $(document).on("click", "#newPostSubmit", function() {
 });
 
 $(".showComments").on("click", function(){
-
   var clickedPost = $(this).find("div.commentRow");
-  console.log(clickedPost);
-  clickedPost.attr("style","display:block;");
-  // $(".commentRow").attr("style","display:block;");
-
+  if (clickedPost.attr("data-value") === "false"){
+    console.log(clickedPost);
+    clickedPost.attr("style","display:block;");
+    clickedPost.attr("data-value","true");
+  } else{
+    clickedPost.attr("style","display:none;");
+    clickedPost.attr("data-value","false");
+  }
 });
 // Add Event Listener to Create an Account
 $regSubmitBtn.on("click", registerFormSubmit);
